@@ -1,0 +1,137 @@
+<!-- strona okulistyczna -->
+<!DOCTYPE html 
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+	<title>projekt: dobrze widzieć</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+	<div id="naglowek"><p>Jaskrowy kalkulator</p></div>
+	<div id="top_menu">
+			<a href="choroby.html">Choroby oczu</a>&nbsp;&nbsp;|&nbsp;
+			<a href="forum.html">Forum</a>&nbsp;&nbsp;|&nbsp;
+			<a href="specjalisci.html">Specjalisci</a>&nbsp;&nbsp;|&nbsp;
+			<a href = "index.html">Powrót do strony głównej</a>
+	</div>
+ 
+<div class="kolumna_srodkowa">
+<div class="panel_tresc">
+
+<script language='Javascript'>
+
+function calculaterisk(form)  {
+
+   var test = sprawdzwartosci(form) ;
+   if (!test) {
+     form.risk.value = "" ;
+     return ;
+   }
+
+   var dm = 0 ;
+   if (form.dm[1].checked) {
+    dm = 1;
+   }
+
+   var risk = 1 - Math.pow(0.906, Math.exp(((Math.log(1.25)/10)  * (form.age.value - 55.4)) +(Math.log(1.11)      * (form.iop.value - 24.9)) +
+    ((Math.log(1.25)/0.2) * (form.psd.value - 1.90)) -((Math.log(1.82)/40)  * (form.cct.value - 574.5)) +((Math.log(1.32)/0.1) * (form.vcd.value - 0.39)) +(Math.log(0.35) * (dm-0.121)) ) )  ;
+
+   form.risk.value =  Math.round(risk * 1000) / 10 ;
+} 
+
+
+function sprawdzwartosci(form) {
+  var blad = "" ;
+  if (isNaN(form.age.value) || (form.age.value < 40) || (form.age.value > 90)) 
+    blad = blad + "Należy wybrać wiek z przedziału 40 - 90 \n" ;
+  if (isNaN(form.iop.value) || (form.iop.value < 22) | (form.iop.value > 32)) 
+    blad = blad + "Należy wprowadzić ciśnienie z przedziału 22 - 32\n" ;
+  if (isNaN(form.psd.value) || (form.psd.value < 0.50) || (form.psd.value > 4.00)) 
+    blad = blad + "Należy wprowadzić parametr PSD z przediału 0.5 - 4.0\n" ;
+  if (isNaN(form.cct.value) || (form.cct.value < 450) || (form.cct.value > 700))
+    blad = blad + "Należy wprowadzić grubość rogówki z przedziału 450 - 700\n" ;
+  if (isNaN(form.vcd.value) || (form.vcd.value < 0) || (form.vcd.value > 0.9)) 
+   blad = blad + "Należy wprowadzić parametr VCD z przedziału 0 - 0.9\n" ;
+
+  if (blad != "") {
+    alert(blad) ;
+    return 0;
+  }
+
+  return 1 ;
+}
+
+
+function czysc_formularz(form)  {
+   form.age.value = "";
+   form.iop.value = "";
+   form.psd.value = "";
+   form.cct.value = "";
+   form.vcd.value = "0.";
+   form.dm[0].checked = true;
+   form.risk.value = "";
+}
+
+</script>
+</div>
+</div>
+<br>
+
+<form method="post">
+<table border="0" cellspacing="0" cellpadding="4" align="center">
+<tr>
+ <td align="left">Wiek</td>
+ <td align="right"><input TYPE="TEXT" NAME="age" SIZE="3" style="display:block; text-align:right"></td>
+ <td align="left">years (40-90)</td>
+</tr>
+<tr>
+ <td align="left">Ciśnienie wewnątrzgałkowe</td>
+ <td align="right"><input TYPE="TEXT" NAME="iop" SIZE="3" style="display:block; text-align:right"></td>
+ <td align="left">mmHg (22-32)</td>
+</tr>
+<tr>
+ <td align="left">Parametr PSD</td>
+ <td align="right"><input TYPE="TEXT" NAME="psd" SIZE="3" style="display:block; text-align:right"></td>
+ <td align="left">dB (0.50-4.00)</td>
+</tr>
+<tr>
+ <td align="left">Centralna grubość rogówki</td>
+ <td align="right"><input TYPE="TEXT" NAME="cct" SIZE="3" style="display:block; text-align:right"></td>
+ <td align="left">microns (450-700)</td>
+</tr>
+<tr>
+ <td align="left">Parametr Cup to Disc</td>
+ <td align="right">
+   <input TYPE="TEXT" NAME="vcd" SIZE="3" style="display:block; text-align:left" VALUE="0.">
+ </td>
+ <td align="left">0 to 0.9</td>
+</tr>
+<tr>
+ <td align="left">Cukrzyca</td>
+ <td align="center"><input TYPE="RADIO" NAME="dm" VALUE="No" CHECKED> Tak</td>
+ <td align="center"><input TYPE="RADIO" NAME="dm" VALUE="Yes">Nie</td>
+</tr>
+<tr>
+ <td align="center"><input TYPE="BUTTON" VALUE="Calculate Risk" ONCLICK="calculaterisk(this.form)">
+ <td align="center"><input TYPE="BUTTON" VALUE="Clear Values" ONCLICK="czysc_formularz(this.form)">
+</tr>
+<tr> 
+ <td align="left">Szacowane ryzyko to: </td>
+ <td align="right"><input TYPE="TEXT" NAME="risk" SIZE="4" style="display:block; text-align:right"></td>
+ <td align="left">procent w ciągu 5 lat</td>
+</tr>
+</table>
+</form>
+	
+	<div id="stopka">
+			<p>Opracował Wiktor Ortaszewski</p>
+			<p class="link"><a href="index.html">projekt pokazowy</a></p>
+	</div>
+
+
+</body>
+</html>
+

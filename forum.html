@@ -1,0 +1,44 @@
+	<?php
+		session_start();
+		if((isset($_SESSION['zalogowany']))&&($_SESSION['zalogowany']==true))
+		{
+			header('Location: na_forum.php');
+			exit();
+		}
+	?>
+<!DOCTYPE html 
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+	<title>projekt: dobrze widzieć</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+	<div id="naglowek"><p>Forum dyskusyjne</p></div>
+	<div id="top_menu">
+			<a href="choroby.html">Choroby oczu</a>&nbsp;&nbsp;|&nbsp;
+			<a href="specjalisci.html">Specjaliści</a>&nbsp;&nbsp;|&nbsp;
+			<a href = "index.html">Powrót do strony głównej</a>
+	</div>
+<div class="kolumna_srodkowa">
+	<div class="panel_tresc">
+		<form action = "zaloguj.php" method = "post">
+		Login: <br/><input type = "text" name = "login"/> <br/>
+		Haslo: <br/><input type = "password" name = "haslo"/> <br/>
+		<br/><input type = "submit" value = "Zaloguj się"/>
+	</form>
+</br>
+</div>
+</div>
+
+	<div id="stopka">
+			<p>Opracował Wiktor Ortaszewski</p>
+			<p class="link"><a href="index.html">projekt pokazowy</a></p>
+	</div>
+
+
+</body>
+</html>
